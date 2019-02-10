@@ -77,9 +77,16 @@ public class DriveTrain extends Subsystem {
 		
 		this.speedLimit = speedLimit;
 		this.rotateLimit = rotateLimit;
-		// myDrive = new MecanumDrive(frontLeft775, backLeft775, frontRight775, backRight775);
-		System.out.println("Constructors are working");
 		
+		myDrive = new MecanumDrive(frontLeft775, backLeft775, frontRight775, backRight775);
+		
+		frontLeftMotor.follow(frontLeft775);
+		frontRightMotor.follow(frontRight775);
+		rearLeftMotor.follow(backLeft775);
+		rearRightMotor.follow(backRight775);
+		
+		System.out.println("Constructors are working");
+	
 	}
 	
 	public DriveTrain() {
