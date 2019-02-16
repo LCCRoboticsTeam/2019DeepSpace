@@ -52,11 +52,11 @@ public class HatchHand extends Subsystem {
         // Put code here to be run every loop
 
     	if (Robot.oi.getHandOpen()) {
-    		
+    		System.out.println("Hand Open button pressed, speed = "+ -1.0*Robot.oi.getSpeed());
     		extender.set(Robot.oi.getSpeed());
     		
     	} else if (Robot.oi.getHandClose()) {
-    		
+    		System.out.println("Hand Close button pressed, speed = "+ -1.0*Robot.oi.getSpeed());
     		extender.set(-Robot.oi.getSpeed());
     		
     	} else {
