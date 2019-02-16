@@ -51,11 +51,11 @@ public class HatchArm extends Subsystem {
     public void periodic() {
         // Put code here to be run every loop
     	if (Robot.oi.getArmUp()) {
-    	
-    		arm.set(-Robot.oi.getSpeed());
+    		System.out.println("Arm up button pressed, speed = "+ -1.0*Robot.oi.getSpeed());
+    		arm.set(-1.0*Robot.oi.getSpeed());
     	
     	} else if (Robot.oi.getArmDown()) {
-    		
+    		System.out.println("Arm down button pressed, speed = "+ Robot.oi.getSpeed());
     		arm.set(Robot.oi.getSpeed());
     		
     	} else {
