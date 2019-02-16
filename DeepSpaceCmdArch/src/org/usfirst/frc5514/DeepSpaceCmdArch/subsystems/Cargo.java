@@ -51,11 +51,11 @@ public class Cargo extends Subsystem {
     public void periodic() {
 
     	if (Robot.oi.getCargoGate()) {
-    		
+    		System.out.println("Cargo Gate Button pressed, speed = "+Robot.oi.getSpeed());
     		gate.set(-Robot.oi.getSpeed());
     		
     	} else {
-    		
+    		//System.out.println("periodic setting cargo gate positive " + Robot.oi.getSpeed());
     		gate.set(Robot.oi.getSpeed());
     		
     	}
