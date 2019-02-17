@@ -114,6 +114,7 @@ public class Environmental extends Subsystem {
 	// Get blocks that represent the vision tape on either side of the line. This
 	// can return 0,1, or 2 blocks depending what is found in a frame.
 	public PixyPacket[] getLinePosition() {
+		
 		PixyPacket[] blocks = linePixy.readBlocks();
 		
 		SmartDashboard.putBoolean("Line Blocks Array is null", blocks == null);
@@ -130,15 +131,22 @@ public class Environmental extends Subsystem {
 	// Using blocks from pixy, create a target class that will do all the magic
 	// math we need to determine angle and distance to line.
 	public LineTarget getLineTarget() {
+		
 		PixyPacket[] packets = getLinePosition();
+		
 		if (packets == null || (packets[0] == null && packets[1] == null))
 			return null;
+		
 		return new LineTarget(packets[0], packets[1]);
 	}
 
+	
 	public LineTarget getLineTargetFiltered() {
+		LineTarget t;
+		
 		for (int i = 0; i < 10; i++) {
-			LineTarget t = getLineTarget();
+			t = getLineTarget();
+			
 			if (t != null) {
 				return t;
 			}
