@@ -48,6 +48,22 @@ public class PixyI2C {
 		return (((int) upper & 0xff) << 8) | ((int) lower & 0xff);
 	}
 
+	public boolean addressOnly (int Signature) {
+		return pixy.addressOnly();
+	}
+	
+	public boolean queryFirmware () throws PixyException {
+		byte[] queryData = new byte[4];
+		
+		queryData[1] = (byte) 0xae;
+		queryData[2] = (byte) 0xc1;
+		queryData[3] = (byte) 0x0e;
+		queryData[4] = (byte) 0x00;
+		
+		return pixy.writeBulk(queryData, 4);
+	}
+	
+	
 	// This method gathers data, then parses that data, and assigns the ints to
 	// global variables.  The signature should be which number object in pixymon
 	// you are trying to get data for
@@ -59,18 +75,24 @@ public class PixyI2C {
 		
 		SmartDashboard.putString(" rawData", rawData[0] + " " + rawData[1] + " " + rawData[15] + " " + rawData[31]);
 		
+		// Try reading 22 bytes
 		try {
-			pixy.readOnly(rawData, 32);
+			pixy.readOnly(rawData, 22);
 		} catch (RuntimeException e) {
 			SmartDashboard.putString(" "+name + "Status", e.toString());
 			System.out.println(" "+name + "  " + e);
 		}
 		
-		if (rawData.length < 32) {
+		SmartDashboard.putString(" "+name + " bytes read", " = "+rawData.length);
+		
+		// exit out on error if less than 32 bytes read
+		if (rawData.length < 22) {
 			SmartDashboard.putString(" "+name + "Status", "raw data length " + rawData.length);
 			System.out.println("byte array length is broken length=" + rawData.length);
 			return null;
 		}
+		
+		// now step through array of data returned
 		for (int i = 0; i <= 16; i++) {
 			
 			// Parse the first 2 bytes
@@ -100,8 +122,8 @@ public class PixyI2C {
 				packets[Sig - 1].Width = cvt(rawData[i + 13], rawData[i + 12]);
 				packets[Sig - 1].Height = cvt(rawData[i + 15], rawData[i + 14]);
 				
-				// Checks whether the data is valid using the checksum *This if
-				// block should never be entered*
+				// Checks whether the data is valid using the checksum 
+				// **This if block should never be entered**
 				if (Checksum != Sig + packets[Sig - 1].X + packets[Sig - 1].Y + packets[Sig - 1].Width
 						+ packets[Sig - 1].Height) {
 					packets[Sig - 1] = null;
