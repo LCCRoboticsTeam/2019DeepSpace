@@ -57,17 +57,17 @@ public class PixyI2C {
 		int Sig;
 		byte[] rawData = new byte[32];
 		
-		SmartDashboard.putString("rawData", rawData[0] + " " + rawData[1] + " " + rawData[15] + " " + rawData[31]);
+		SmartDashboard.putString(" rawData", rawData[0] + " " + rawData[1] + " " + rawData[15] + " " + rawData[31]);
 		
 		try {
 			pixy.readOnly(rawData, 32);
 		} catch (RuntimeException e) {
-			SmartDashboard.putString(name + "Status", e.toString());
-			System.out.println(name + "  " + e);
+			SmartDashboard.putString(" "+name + "Status", e.toString());
+			System.out.println(" "+name + "  " + e);
 		}
 		
 		if (rawData.length < 32) {
-			SmartDashboard.putString(name + "Status", "raw data length " + rawData.length);
+			SmartDashboard.putString(" "+name + "Status", "raw data length " + rawData.length);
 			System.out.println("byte array length is broken length=" + rawData.length);
 			return null;
 		}
@@ -109,7 +109,7 @@ public class PixyI2C {
 				}
 				break;
 			} else
-				SmartDashboard.putNumber("syncword: ", syncWord);
+				SmartDashboard.putNumber(" syncword: ", syncWord);
 		}
 		// Assigns our packet to a temp packet, then deletes data so that we
 		// don't return old data
@@ -123,11 +123,11 @@ public class PixyI2C {
 		try {
 			pixy.readOnly(rawData, len);
 		} catch (RuntimeException e) {
-			SmartDashboard.putString(name + "Status", e.toString());
+			SmartDashboard.putString(" "+name + "Status", e.toString());
 			System.out.println(name + "  " + e);
 		}
 		if (rawData.length < len) {
-			SmartDashboard.putString(name + "Status", "raw data length " + rawData.length);
+			SmartDashboard.putString(" "+name + "Status", "raw data length " + rawData.length);
 			System.out.println("byte array length is broken length=" + rawData.length);
 			return null;
 		}

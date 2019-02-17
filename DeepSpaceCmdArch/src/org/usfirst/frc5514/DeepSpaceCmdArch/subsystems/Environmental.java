@@ -75,6 +75,7 @@ public class Environmental extends Subsystem {
         // Put code here to be run every loop
        	if (Robot.oi.getSafety()) {
     		System.out.println("Safety Button pressed, calling testLinePixy");
+    		SmartDashboard.putString(" Safety Button", "pressed");
     		testLinePixy();
     	} 
     }
