@@ -41,7 +41,6 @@ public class PixyI2C {
 		values = argValues;
 		name = "Pixy_" + id;
 		
-
 	}
 	
 	// This method parses raw data from the pixy into readable integers
@@ -207,6 +206,7 @@ public class PixyI2C {
 	private boolean skipStart = false;
 
 	public PixyPacket[] readBlocks() {
+		
 		// This has to match the max block setting in pixymon?
 		int maxBlocks = 2;
 		PixyPacket[] blocks = new PixyPacket[maxBlocks];
@@ -218,11 +218,14 @@ public class PixyI2C {
 		} else {
 			skipStart = false;
 		}
+		
 		for (int i = 0; i < maxBlocks; i++) {
 			// Should we set to empty PixyPacket? To avoid having to check for
 			// null in callers?
 			blocks[i] = null;
+			
 			int checksum = readWord();
+			
 			if (checksum == START_WORD) {
 				// we've reached the beginning of the next frame
 				skipStart = true;

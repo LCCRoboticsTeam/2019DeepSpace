@@ -57,7 +57,7 @@ public class Environmental extends Subsystem {
 		
 		// Use the PixyMon application to set the address of the Pixy2 camera
 		// currently it's: 0x54
-		linePixy = new PixyI2C("gear", new I2C(port, 0x54), packet1, new PixyException(print), new PixyPacket());
+		linePixy = new PixyI2C("line", new I2C(port, 0x54), packet1, new PixyException(print), new PixyPacket());
 	}
 	
     @Override
