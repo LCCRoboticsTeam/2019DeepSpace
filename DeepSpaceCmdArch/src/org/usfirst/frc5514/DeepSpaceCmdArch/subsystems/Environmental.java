@@ -57,7 +57,7 @@ public class Environmental extends Subsystem {
 		
 		// Use the PixyMon application to set the address of the Pixy2 camera
 		// currently it's: 0x54
-		linePixy = new PixyI2C("gear", new I2C(port, 0x54), packet1, new PixyException(print), new PixyPacket());
+		linePixy = new PixyI2C("line", new I2C(port, 0x54), packet1, new PixyException(print), new PixyPacket());
 	}
 	
     @Override
@@ -75,7 +75,7 @@ public class Environmental extends Subsystem {
     public void periodic() {
         // Put code here to be run every loop
        	if (Robot.oi.getSafety()) {
-    		System.out.println("Safety Button pressed, speed = ");
+    		SmartDashboard.putString(" Safety Button", "pressed");
     		testLinePixy();
     	} 
     }
@@ -88,26 +88,26 @@ public class Environmental extends Subsystem {
     	for (int i = 0; i < packet1.length; i++)
 			packet1[i] = null;
 		
-		SmartDashboard.putString("linePixy hello", "working");
+		SmartDashboard.putString(" linePixy hello", "working");
 		
 		for (int i = 1; i < 8; i++) {
 			
 			try {
 				packet1[i - 1] = linePixy.readPacket(i);
 			} catch (PixyException e) {
-				SmartDashboard.putString("linePixy Error: " + i, "exception");
+				SmartDashboard.putString(" linePixy Error: " + i, "exception");
 			}
 			
 			if (packet1[i - 1] == null) {
-				SmartDashboard.putString("linePixy Error: " + i, "True");
+				SmartDashboard.putString(" linePixy Error: " + i, "True");
 				continue;
 			
 			}
-			SmartDashboard.putNumber("linePixy X Value: " + i, packet1[i - 1].X);
-			SmartDashboard.putNumber("linePixy Y Value: " + i, packet1[i - 1].Y);
-			SmartDashboard.putNumber("linePixy Width Value: " + i, packet1[i - 1].Width);
-			SmartDashboard.putNumber("linePixy Height Value: " + i, packet1[i - 1].Height);
-			SmartDashboard.putString("linePixy Error: " + i, "False");
+			SmartDashboard.putNumber(" linePixy X Value: " + i, packet1[i - 1].X);
+			SmartDashboard.putNumber(" linePixy Y Value: " + i, packet1[i - 1].Y);
+			SmartDashboard.putNumber(" linePixy Width Value: " + i, packet1[i - 1].Width);
+			SmartDashboard.putNumber(" linePixy Height Value: " + i, packet1[i - 1].Height);
+			SmartDashboard.putString(" linePixy Error: " + i, "False");
 		}
 	}
     
@@ -116,13 +116,13 @@ public class Environmental extends Subsystem {
 	public PixyPacket[] getPegPosition() {
 		PixyPacket[] blocks = linePixy.readBlocks();
 		
-		SmartDashboard.putBoolean("Peg Blocks Array is null", blocks == null);
+		SmartDashboard.putBoolean(" Peg Blocks Array is null", blocks == null);
 		
 		if (blocks == null)
 			return null;
 		
-		SmartDashboard.putString("Peg Block 0", (blocks[0] == null) ? "null" : blocks[0].toString());
-		SmartDashboard.putString("Peg Block 1", (blocks[1] == null) ? "null" : blocks[1].toString());
+		SmartDashboard.putString(" Peg Block 0", (blocks[0] == null) ? "null" : blocks[0].toString());
+		SmartDashboard.putString(" Peg Block 1", (blocks[1] == null) ? "null" : blocks[1].toString());
 		
 		return blocks;
 	}

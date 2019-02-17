@@ -147,8 +147,10 @@ public class Robot extends TimedRobot {
     public void teleopPeriodic() {
         Scheduler.getInstance().run();
         
-        System.out.print(oi.getX() + " ");
-        System.out.println(oi.getY());
+		
+        //System.out.print(oi.getX() + " "); System.out.println(oi.getY());
+		 
+        System.out.println(oi.getCargoGate());
         
     }
 }
