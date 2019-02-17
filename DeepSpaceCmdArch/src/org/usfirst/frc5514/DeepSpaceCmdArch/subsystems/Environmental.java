@@ -74,7 +74,7 @@ public class Environmental extends Subsystem {
     public void periodic() {
         // Put code here to be run every loop
        	if (Robot.oi.getSafety()) {
-    		System.out.println("Safety Button pressed, speed = ");
+    		System.out.println("Safety Button pressed, calling testLinePixy");
     		testLinePixy();
     	} 
     }
@@ -87,27 +87,26 @@ public class Environmental extends Subsystem {
     	for (int i = 0; i < packet1.length; i++)
 			packet1[i] = null;
 		
-		SmartDashboard.putString("linePixy hello", "working");
+		SmartDashboard.putString(" testLinePixy hello", "working");
 		
 		for (int i = 1; i < 8; i++) {
 			
 			try {
 				packet1[i - 1] = linePixy.readPacket(i);
 			} catch (PixyException e) {
-				SmartDashboard.putString("linePixy Error: " + i, "exception");
+				SmartDashboard.putString(" testLinePixy Error: " + i, "exception");
 			}
 			
 			if (packet1[i - 1] == null) {
-				SmartDashboard.putString("linePixy Error: " + i, "True");
+				SmartDashboard.putString(" testLinePixy Error: " + i, "True");
 				continue;
-			
 			}
 			
-			SmartDashboard.putNumber("linePixy X Value: " + i, packet1[i - 1].X);
-			SmartDashboard.putNumber("linePixy Y Value: " + i, packet1[i - 1].Y);
-			SmartDashboard.putNumber("linePixy Width Value: " + i, packet1[i - 1].Width);
-			SmartDashboard.putNumber("linePixy Height Value: " + i, packet1[i - 1].Height);
-			SmartDashboard.putString("linePixy Error: " + i, "False");
+			SmartDashboard.putNumber(" testLinePixy X Value: " + i, packet1[i - 1].X);
+			SmartDashboard.putNumber(" testLinePixy Y Value: " + i, packet1[i - 1].Y);
+			SmartDashboard.putNumber(" testLinePixy Width Value: " + i, packet1[i - 1].Width);
+			SmartDashboard.putNumber(" testLinePixy Height Value: " + i, packet1[i - 1].Height);
+			SmartDashboard.putString(" testLinePixy Error: " + i, "False");
 		}
 	}
     
