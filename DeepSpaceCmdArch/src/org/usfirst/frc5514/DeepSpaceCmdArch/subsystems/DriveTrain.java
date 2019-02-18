@@ -101,8 +101,8 @@ public class DriveTrain extends Subsystem {
 		backLeft775 = new WPI_TalonSRX(kBackLeft775);
 		backRight775 = new WPI_TalonSRX(kBackRight775);
 		
-		speedLimit = .8;
-		rotateLimit = .9;
+		speedLimit = .4;
+		rotateLimit = .4;
 		
 		myDrive = new MecanumDrive(frontLeft775, backLeft775, frontRight775, backRight775);
 		
